@@ -1,0 +1,20 @@
+services:
+  mysql8:
+    container_name: mysql8
+    image: mysql:8.0
+    env_file:
+      - .env
+    ports:
+      - "${MYSQL_PORT}:3306"
+    volumes:
+      - mysql8-data:/var/lib/mysql
+      - ${CNF_PATH}:/etc/mysql/conf.d/my.cnf
+    restart: "no"
+
+volumes:
+  mysql8-data:
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: ${VOLUME_PATH}
